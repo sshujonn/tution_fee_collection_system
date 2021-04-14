@@ -39,7 +39,7 @@ def log_in(request):
 def dashboard(request):
     if request.user.is_authenticated:
 
-        return render(request, 'main.html', {})
+        return render(request, 'dashboard/dashboard.html', {})
     else:
         return HttpResponseRedirect(reverse('login'))
 

@@ -101,7 +101,7 @@ p {
 body {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 8px;
     line-height: 1.625;
     color: #666;
     -webkit-font-smoothing: antialiased;
@@ -163,13 +163,13 @@ strong {
 .title-1 {
     text-transform: capitalize;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .title-2 {
     text-transform: capitalize;
     font-weight: 400;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1;
 }
 
@@ -244,6 +244,7 @@ section {
     position: relative;
     margin: 0 auto;
     z-index: 1;
+    font-size: 15px;
 }
 
 .section__content--w1830 {
@@ -252,6 +253,7 @@ section {
 
 .section__content--p30 {
     padding: 0 30px;
+    font-size: 15px;
 }
 
 @media (max-width: 991px) {
@@ -1632,7 +1634,7 @@ section {
 .navbar-sidebar .navbar__list li a {
     display: block;
     color: #555;
-    font-size: 16px;
+    font-size: 14px;
     padding: 15px 0;
 }
 
@@ -1755,6 +1757,7 @@ section {
     border-bottom: 1px solid #e6e6e6;
     text-transform: capitalize;
     line-height: inherit;
+    font-size: 12px;
 }
 
 .header-mobile .navbar-mobile .navbar-mobile__list li a:hover {
@@ -3210,13 +3213,13 @@ section {
 .overview-box .text h2 {
     font-weight: 300;
     color: #fff;
-    font-size: 36px;
+    font-size: 16px;
     line-height: 1;
     margin-bottom: 5px;
 }
 
 .overview-box .text span {
-    font-size: 18px;
+    font-size: 16px;
     color: rgba(255, 255, 255, 0.6);
 }
 
@@ -3226,18 +3229,19 @@ section {
     }
 
     .overview-box .text h2 {
-        font-size: 20px;
+        font-size: 12px;
         margin-bottom: 0;
     }
 
     .overview-box .text span {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 
+
 @media (max-width: 991px) {
     .overview-box .text h2 {
-        font-size: 26px;
+        font-size: 12px;
     }
 
     .overview-box .text span {

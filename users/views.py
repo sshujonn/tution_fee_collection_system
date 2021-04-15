@@ -10,6 +10,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.urls import reverse
 
 from users.form import SignInForm, SignUpForm
+from users.models import Profile
 
 
 def log_in(request):
@@ -22,13 +23,19 @@ def log_in(request):
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user:
-            if user.is_active:
+            if user.is_active and user.is_superuser:
                 login(request, user)
-
                 return HttpResponseRedirect(reverse('dashboard'))
+
             else:
-                messages.warning(request,
-                                 'Your account is inactive. ')
+                profile = Profile.objects.get(pk=user.id)
+                # import pdb;pdb.set_trace()
+                if user.is_active and profile and profile.is_authorized:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse('dashboard'))
+                else:
+                    messages.warning(request,
+                                     'Your account is inactive. ')
         else:
             messages.warning(request, 'Invalid login details given.')
 

@@ -68,3 +68,7 @@ def sign_up(request):
                              'Your information is incorrect.')
 
     return render(request, 'signup.html', {'form': form})
+
+
+def profile(request):
+    return render(request, 'dashboard/profile.html', {})

@@ -50,6 +50,7 @@ def dashboard(request):
     else:
         return HttpResponseRedirect(reverse('login'))
 
+
 def log_out(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
@@ -72,3 +73,7 @@ def sign_up(request):
 
 def profile(request):
     return render(request, 'dashboard/profile.html', {})
+
+
+def class_structure(request):
+    return render(request, 'dashboard/class.html', {})

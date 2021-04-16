@@ -1,17 +1,43 @@
 {% extends "dashboard/base.html" %}
 
 {% block content %}
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-<p>Profile</p>
+<div class="col-md-12">
+    <div class="card ">
+        <div class="card-header" style="font-size:16px;">Reset Password</div>
+        <div class="card-body card-block">
+            <form action="" method="post" class="">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-asterisk"></i>
+                        </div>
+                        <input type="password" id="oldPassword" name="password" placeholder="Old Password"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-asterisk"></i>
+                        </div>
+                        <input type="password" id="newPassword" name="password" placeholder="New Password"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-asterisk"></i>
+                        </div>
+                        <input type="password" id="confirmPassword" name="password" placeholder="Confirm New Password"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="form-actions form-group">
+                    <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

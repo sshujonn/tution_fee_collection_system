@@ -83,7 +83,7 @@
                             <i class="fas fa-tachometer-alt"></i>Profile</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
-                                <a href="index.html">Change Password</a>
+                                <a href="{% url 'profile' %}">Change Password</a>
                             </li>
                             <li>
                                 <a href="index2.html">Extra Option 1</a>
@@ -203,7 +203,7 @@
                             <i class="fas fa-user"></i>Profile</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a href="index.html">Change Password</a>
+                                <a href="{% url 'profile' %}">Change Password</a>
                             </li>
                             <li>
                                 <a href="index2.html">Extra Option 1</a>
@@ -215,7 +215,8 @@
                             <i class="fas fa-server"></i>System Setup</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a href="index.html">Class</a>
+<!--                                <a href="index.html">Class</a>-->
+                                <a href="{% url 'class_structure' %}">Class</a>
                             </li>
                             <li>
                                 <a href="index2.html">Section</a>
@@ -484,8 +485,10 @@
             </div>
         </header>
         <!-- HEADER DESKTOP-->
-        <div id="content">
+        <div id="content ">
+            <div class="main-content d-flex">
             {% block content %}{% endblock %}
+            </div>
         </div>
         <!-- END PAGE CONTAINER-->
     </div>

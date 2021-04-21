@@ -71,9 +71,33 @@ def sign_up(request):
     return render(request, 'signup.html', {'form': form})
 
 
-def profile(request):
-    return render(request, 'dashboard/profile.html', {})
+def change_password(request):
+    return render(request, 'dashboard/change_password.html', {})
 
 
-def class_structure(request):
-    return render(request, 'dashboard/class.html', {})
+def class_setup(request):
+    return render(request, 'dashboard/class_setup.html', {})
+
+
+def section_setup(request):
+    return render(request, 'dashboard/section_setup.html', {})
+
+
+def shift_setup(request):
+    return render(request, 'dashboard/shift_setup.html', {})
+
+
+def view_structure(request):
+    return render(request, 'dashboard/view_structure.html', {})
+
+
+def user_profile(request):
+    return render(request, 'dashboard/user_profile.html', {})
+
+
+def fee_structure(request):
+    return render(request, 'dashboard/fee_structure.html', {})
+
+
+def add_fee_category(request):
+    return render(request, 'dashboard/add_fee_category.html', {})

@@ -101,7 +101,7 @@ p {
 body {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
-    font-size: 8px;
+    font-size: 12px;
     line-height: 1.625;
     color: #666;
     -webkit-font-smoothing: antialiased;
@@ -4223,12 +4223,13 @@ section {
 }
 
 .chart-percent-2 .chart-info .chart-note:last-child {
-    margin-right: 0;
+    margin-right: 0;python
 }
 
 /* ----- Table ----- */
 .table {
     margin: 0;
+    font-size: 12px;
 }
 
 .table-responsive.table--no-card {

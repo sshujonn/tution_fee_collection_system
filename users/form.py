@@ -10,6 +10,7 @@ class SignInForm(AuthenticationForm):
         model = User
         fields = ('username', 'password')
 
+
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='First Name. Optional.')
     last_name = forms.CharField(max_length=30, required=False, help_text='Last Name. Optional.')

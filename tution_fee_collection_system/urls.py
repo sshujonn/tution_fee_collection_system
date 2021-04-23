@@ -18,7 +18,7 @@ import profile
 from django.contrib import admin
 from django.urls import path
 from users.views import log_in, dashboard, log_out, sign_up, change_password, class_setup, section_setup, shift_setup, \
-    view_structure, user_profile, fee_structure, add_fee_category
+    view_structure, user_profile, fee_structure, add_fee_category, add_class
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,4 +34,6 @@ urlpatterns = [
     path('user_profile/', user_profile, name='user_profile'),
     path('fee_structure/', fee_structure, name='fee_structure'),
     path('add_fee_category/', add_fee_category, name='add_fee_category'),
+    path('add_class/', add_class, name='add_class'),
+
 ]

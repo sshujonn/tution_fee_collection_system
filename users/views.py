@@ -101,3 +101,7 @@ def fee_structure(request):
 
 def add_fee_category(request):
     return render(request, 'dashboard/add_fee_category.html', {})
+
+
+def add_class(request):
+    return render(request, 'dashboard/add_class.html', {})

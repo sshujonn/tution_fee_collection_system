@@ -11,6 +11,7 @@ from django.urls import reverse
 
 from users.form import SignInForm, SignUpForm
 from users.models import Profile
+from classes.forms import classForm
 
 
 def log_in(request):
@@ -104,4 +105,13 @@ def add_fee_category(request):
 
 
 def add_class(request):
-    return render(request, 'dashboard/add_class.html', {})
+    form = classForm()
+    if request.method == 'POST':
+        # print(request.POST)
+        form = classForm(request.POST)
+        if form.is_valid():
+            form.save()
+        form.clean()
+    context = {'form': form}
+    # return render(request, 'dashboard/add_class.html', {})
+    return render(request, 'dashboard/add_class.html', context)

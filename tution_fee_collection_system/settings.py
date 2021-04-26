@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'sections',
     'student_category',
     'students',
+    'menu',
+    'parent_menu'
 ]
 
 MIDDLEWARE = [

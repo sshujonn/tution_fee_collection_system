@@ -9,8 +9,13 @@ from django.contrib.auth import logout, authenticate, login
 # Create your views here.\
 from django.urls import reverse
 
+from menu.models import Menu
 from users.form import SignInForm, SignUpForm
 from users.models import Profile
+from users.service import UsersService
+
+from menu.models import Menu
+from users.serializers import MenuSerializer
 
 
 def log_in(request):
@@ -45,8 +50,14 @@ def log_in(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
+        profile = Profile.objects.get(pk=request.user.id)
+        if profile and profile.is_authorized:
 
-        return render(request, 'dashboard/dashboard.html', {})
+            menu = UsersService().get_menu(request.user)
+            # import pdb;pdb.set_trace()
+            return render(request, 'dashboard/dashboard.html', {'menu': menu})
+        else:
+            return HttpResponseRedirect(reverse('login'))
     else:
         return HttpResponseRedirect(reverse('login'))
 

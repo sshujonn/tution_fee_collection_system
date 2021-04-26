@@ -126,59 +126,28 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li class="has-sub">
-                        <a class="js-arrow" href="{% url 'user_profile' %}">
-                            <i class="fas fa-user"></i>Profile</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'change_password' %}">
-                            <i class="fas fa-lock"></i>Change Password</a>
-                    </li>
-                    <li class=" has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-server"></i>System Setup</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-<!--                                <a href="index.html">Class</a>-->
-                                <a href="{% url 'class_setup' %}">Class</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'section_setup' %}">Section</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'shift_setup' %}">Shift</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'view_structure' %}">View Structure</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class=" has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fa fa-usd"></i>Fee Setup</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-<!--                                <a href="index.html">Class</a>-->
-                                <a href="{% url 'add_fee_category' %}">Add Fee Category</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'fee_structure' %}">Fee</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-copy"></i>Pages</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Register</a>
-                            </li>
-                        </ul>
-                    </li>
 
+                    {% for key, value in menu.items %}
+                        <li class=" has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-server"></i>{{ key }}</a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+
+                            {% for item in value %}
+                                <li>
+                                    {% url item.url as the_url %}
+                                    {% if the_url %}
+                                        <a href="{{ the_url }}">{{ item.menu_name }}</a>
+                                    {% else %}
+                                        <a href="invalid_url">{{ item.menu_name }}</a>
+                                    {% endif %}
+{#                                    <a href="{% url ''| add:item.url %}">{{ item.menu_name }}</a>#}
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </li>
+                    {% endfor %}
                 </ul>
             </nav>
         </div>
@@ -228,7 +197,7 @@
                                         </div>
                                         <div class="account-dropdown__body">
                                             <div class="account-dropdown__item">
-                                                <a href="#">
+                                                <a href="">
                                                     <i class="zmdi zmdi-account"></i>Profile</a>
                                             </div>
                                             <div class="account-dropdown__item">

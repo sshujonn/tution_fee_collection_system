@@ -7,6 +7,7 @@ class UsersService:
 
     def get_menu(self, user):
         groups = user.groups.all()
+        # import pdb;pdb.set_trace()
         menus = Menu.objects.filter(group__in=groups)
         result = {}
         for menu in menus:

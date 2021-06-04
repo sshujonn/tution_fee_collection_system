@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'crispy_forms',
+    'rest_framework',
+    'helper',
     'users',
     'branches',
     'classes',
@@ -49,7 +52,8 @@ INSTALLED_APPS = [
     'student_category',
     'students',
     'menu',
-    'parent_menu'
+    'parent_menu',
+    'django_tables2'
 ]
 
 MIDDLEWARE = [

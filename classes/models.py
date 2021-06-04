@@ -5,3 +5,4 @@ from django.db import models
 
 class StudentClass(models.Model):
     class_name = models.CharField(max_length=50)
+    created_by = models.IntegerField(blank=False)

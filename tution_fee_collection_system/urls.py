@@ -20,6 +20,9 @@ from django.urls import path
 from users.views import log_in, dashboard, log_out, sign_up, change_password, class_setup, section_setup, shift_setup, \
     view_structure, user_profile, fee_structure, add_fee_category, add_class
 
+
+from classes import views as class_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', log_in, name='login'),
@@ -35,5 +38,9 @@ urlpatterns = [
     path('fee_structure/', fee_structure, name='fee_structure'),
     path('add_fee_category/', add_fee_category, name='add_fee_category'),
     path('add_class/', add_class, name='add_class'),
+
+    path('view_class/', class_views.StudentClassList.as_view(), name='view_studentclass'),
+    path('add_studentclass/', class_views.StudentClassCreate.as_view(), name='create_studentclass'),
+    path('update_class/<int:pk>/<slug:action>', class_views.StudentClasssEdit.as_view(), name='update_studentclass'),
 
 ]

@@ -11,4 +11,7 @@ class Menu(models.Model):
     related_url = models.CharField(max_length=50)
     parent_menu = models.ForeignKey(ParentMenu, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.menu_name
+
 

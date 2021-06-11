@@ -22,6 +22,7 @@ from users.views import log_in, dashboard, log_out, sign_up, change_password, cl
 
 from classes import views as class_views
 from institutions import views as ins_views
+from branches import views as branch_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,5 +49,8 @@ urlpatterns = [
     path('view_institution/', ins_views.InstitutionList.as_view(), name='view_institution'),
     path('add_institution/', ins_views.InstitutionCreate.as_view(), name='create_institution'),
     path('update_institution/<int:pk>/<slug:action>', ins_views.InstitutionEdit.as_view(), name='update_institution'),
+
+    # For institution
+    path('view_branch/', branch_views.BranchList.as_view(), name='view_branch'),
 
 ]

@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 
-class branches(models.Model):
+class Branch(models.Model):
     branch_name = models.CharField(max_length=50)
     branch_email = models.CharField(max_length=60)
     branch_phone_number = models.CharField(max_length=20)

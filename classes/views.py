@@ -72,6 +72,7 @@ class StudentClasssEdit(APIView):
 
     def get(self, request, pk, action=None):
         item = StudentClass.objects.filter()
+
         menu = gs.get_menu(request.user)
 
         if (len(item) < 1):

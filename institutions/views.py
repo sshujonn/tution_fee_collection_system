@@ -49,6 +49,7 @@ class InstitutionList(APIView):
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
 
+
 class InstitutionCreate(APIView):
     permission_classes = (IsAuthenticated, DBCRUDPermission)
     template_name = 'dashboard/Institutions/create_institution_page.html'

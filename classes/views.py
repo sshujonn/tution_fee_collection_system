@@ -14,8 +14,9 @@ from helper.PermissionUtil import DBCRUDPermission
 from helper.global_service import GlobalService
 
 gs = GlobalService()
-class StudentClassSerializer(serializers.ModelSerializer):
 
+
+class StudentClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentClass
         fields = (
@@ -23,12 +24,11 @@ class StudentClassSerializer(serializers.ModelSerializer):
             'class_name',
         )
 
+
 class StudentClassFieldsSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentClass
         fields = '__all__'
-
-
 
 
 class StudentClassCreate(APIView):
@@ -39,17 +39,15 @@ class StudentClassCreate(APIView):
     def get(self, request):
         menu = gs.get_menu(request.user)
         serializer = StudentClassSerializer()
-        return Response({'serializer': serializer, 'menu': menu},template_name=self.template_name)
-
+        return Response({'serializer': serializer, 'menu': menu}, template_name=self.template_name)
 
     def post(self, request):
-        modified_data = gs.update_immutable_obj(request.data, {'created_by':request.user.id})
+        modified_data = gs.update_immutable_obj(request.data, {'created_by': request.user.id})
         # modified_data = gs.update_immutable_obj(request.data,{'created_by':request.user.id, 'last_updated_by': request.user.pk})
-        serializer = StudentClassFieldsSerializer(context=request,data=modified_data)
+        serializer = StudentClassFieldsSerializer(context=request, data=modified_data)
         if serializer.is_valid():
             serializer.save()
         return HttpResponseRedirect(reverse('view_studentclass'))
-
 
 
 class StudentClassList(APIView):
@@ -59,12 +57,10 @@ class StudentClassList(APIView):
     renderer_classes = [renderers.TemplateHTMLRenderer, renderers.JSONRenderer]
 
     def get(self, request):
-
         menu = gs.get_menu(request.user)
 
         projects = StudentClass.objects.all()
         projects = c_serializers.serialize("python", projects)
-
 
         return Response({'serializer': projects, 'menu': menu}, template_name=self.template_name)
 
@@ -76,8 +72,9 @@ class StudentClasssEdit(APIView):
 
     def get(self, request, pk, action=None):
         item = StudentClass.objects.filter()
+        menu = gs.get_menu(request.user)
 
-        if (len(item)<1):
+        if (len(item) < 1):
             messages.warning(request, 'Only creator of this project can update')
             return HttpResponseRedirect(reverse('view_studentclass'))
         item = item.get(pk=pk)
@@ -85,7 +82,7 @@ class StudentClasssEdit(APIView):
             item.delete()
         else:
             serializer = StudentClassSerializer(item)
-            return Response({'serializer': serializer, 'item': item},template_name=self.template_name)
+            return Response({'serializer': serializer, 'item': item, 'menu': menu}, template_name=self.template_name)
 
         return HttpResponseRedirect(reverse('view_studentclass'))
 
@@ -93,7 +90,7 @@ class StudentClasssEdit(APIView):
         item = StudentClass.objects.filter().get(pk=pk)
         serializer = StudentClassSerializer(item, data=request.data)
 
-        if action=='update':
+        if action == 'update':
             if serializer.is_valid():
                 serializer.save()
 

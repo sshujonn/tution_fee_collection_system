@@ -20,8 +20,8 @@ from django.urls import path
 from users.views import log_in, dashboard, log_out, sign_up, change_password, class_setup, section_setup, shift_setup, \
     view_structure, user_profile, fee_structure, add_fee_category, add_class
 
-
 from classes import views as class_views
+from institutions import views as ins_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,8 +39,14 @@ urlpatterns = [
     path('add_fee_category/', add_fee_category, name='add_fee_category'),
     path('add_class/', add_class, name='add_class'),
 
+    # For class
     path('view_class/', class_views.StudentClassList.as_view(), name='view_studentclass'),
     path('add_studentclass/', class_views.StudentClassCreate.as_view(), name='create_studentclass'),
     path('update_class/<int:pk>/<slug:action>', class_views.StudentClasssEdit.as_view(), name='update_studentclass'),
+
+    # For institution
+    path('view_institution/', ins_views.InstitutionList.as_view(), name='view_institution'),
+    path('add_institution/', ins_views.InstitutionCreate.as_view(), name='create_institution'),
+    path('update_institution/<int:pk>/<slug:action>', ins_views.InstitutionEdit.as_view(), name='update_institution'),
 
 ]

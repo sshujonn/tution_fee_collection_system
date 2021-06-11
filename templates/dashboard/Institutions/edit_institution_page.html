@@ -1,0 +1,16 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% load render_table from django_tables2 %}
+{% load rest_framework %}
+{% block content %}
+<form autocomplete="off" class="form-horizontal" method="post"
+      action="{% url 'update_institution' pk=item.id action='update'%}">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <br>
+    <button type="submit" class="form-group btn btn-success" style="background: #03c10b; color: black">Update</button>
+    <a type="submit" class="form-group btn btn-neutral" style="background: #03c10b; color: black"
+       href="{% url 'view_institution' %}">Cancel</a>
+</form>
+{% endblock %}

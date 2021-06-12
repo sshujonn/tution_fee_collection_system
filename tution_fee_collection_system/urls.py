@@ -24,6 +24,7 @@ from classes import views as class_views
 from institutions import views as ins_views
 from branches import views as branch_views
 from fee import views as fee_views
+from sections import views as section_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -60,5 +61,10 @@ urlpatterns = [
     path('view_fee/', fee_views.FeeList.as_view(), name='view_fee'),
     path('add_fee/', fee_views.FeeCreate.as_view(), name='create_fee'),
     path('update_fee/<int:pk>/<slug:action>', fee_views.FeeEdit.as_view(), name='update_fee'),
+
+    # For Sections
+    path('view_section/', section_views.SectionList.as_view(), name='view_sections'),
+    path('add_section/', section_views.SectionCreate.as_view(), name='create_sections'),
+    path('update_section/<int:pk>/<slug:action>', section_views.SectionEdit.as_view(), name='update_sections'),
 
 ]

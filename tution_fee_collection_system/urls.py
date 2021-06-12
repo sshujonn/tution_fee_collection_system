@@ -23,6 +23,7 @@ from users.views import log_in, dashboard, log_out, sign_up, change_password, cl
 from classes import views as class_views
 from institutions import views as ins_views
 from branches import views as branch_views
+from fee import views as fee_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,7 +51,14 @@ urlpatterns = [
     path('add_institution/', ins_views.InstitutionCreate.as_view(), name='create_institution'),
     path('update_institution/<int:pk>/<slug:action>', ins_views.InstitutionEdit.as_view(), name='update_institution'),
 
-    # For institution
+    # For branch
     path('view_branch/', branch_views.BranchList.as_view(), name='view_branch'),
+    path('add_branch/', branch_views.BranchCreate.as_view(), name='create_branch'),
+    path('update_branch/<int:pk>/<slug:action>', branch_views.BrachEdit.as_view(), name='update_branch'),
+
+    # For fee
+    path('view_fee/', fee_views.FeeList.as_view(), name='view_fee'),
+    path('add_fee/', fee_views.FeeCreate.as_view(), name='create_fee'),
+    path('update_fee/<int:pk>/<slug:action>', fee_views.FeeEdit.as_view(), name='update_fee'),
 
 ]

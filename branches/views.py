@@ -27,6 +27,7 @@ class BranchSerializer(serializers.ModelSerializer):
             'branch_phone_number',
             'branch_address',
             'branch_status',
+            'institution',
         )
 
 
@@ -46,6 +47,8 @@ class BranchList(APIView):
         menu = gs.get_menu(request.user)
 
         items = Branch.objects.all()
+
+        # import pdb;pdb.set_trace()
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)

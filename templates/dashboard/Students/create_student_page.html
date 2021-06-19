@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <form autocomplete="off" class="form-horizontal" method="post" action="{% url 'create_studentcategory' %}">
+                        <form autocomplete="off" class="form-horizontal" method="post" action="{% url 'create_students' %}">
                             {% csrf_token %}
 
                             {% render_form serializer %}

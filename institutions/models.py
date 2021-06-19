@@ -8,3 +8,5 @@ class Institution(models.Model):
     institution_address = models.CharField(max_length=200)
     institution_phone_number = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.institution_name

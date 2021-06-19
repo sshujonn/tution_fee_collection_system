@@ -26,6 +26,7 @@ from branches import views as branch_views
 from fee import views as fee_views
 from sections import views as section_views
 from student_category import views as student_category_views
+from students import views as students_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -68,9 +69,13 @@ urlpatterns = [
     path('add_section/', section_views.SectionCreate.as_view(), name='create_sections'),
     path('update_section/<int:pk>/<slug:action>', section_views.SectionEdit.as_view(), name='update_sections'),
 
-    # For Sections
-    path('view_student_category/', student_category_views.StudentCategoryList.as_view(), name='view_student_category'),
-    path('add_student_category/', section_views.SectionCreate.as_view(), name='create_student_category'),
-    # path('update_section/<int:pk>/<slug:action>', section_views.SectionEdit.as_view(), name='update_sections'),
+    # For Student Category
+    path('view_student_category/', student_category_views.StudentCategoryList.as_view(), name='view_studentcategory'),
+    path('add_student_category/', student_category_views.StudentCategoryCreate.as_view(), name='create_studentcategory'),
+    path('update_student_category/<int:pk>/<slug:action>', student_category_views.StudentCategoryEdit.as_view(), name='update_studentcategory'),
 
+    # For Student Category
+    path('view_students/',  students_views.StudentList.as_view(), name='view_students'),
+    path('add_students/', students_views.StudentCreate.as_view(), name='create_students'),
+    path('update_students/<int:pk>/<slug:action>', students_views.StudentEdit.as_view(), name='update_students'),
 ]

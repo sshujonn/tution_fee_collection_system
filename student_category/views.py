@@ -52,6 +52,7 @@ class StudentCategoryCreate(APIView):
     template_name = 'dashboard/Student_Categories/create_student_category_page.html'
     renderer_classes = [renderers.TemplateHTMLRenderer]
 
+
     def get(self, request):
         menu = gs.get_menu(request.user)
         serializer = StudentCategorySerializer()

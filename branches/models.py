@@ -11,3 +11,6 @@ class Branch(models.Model):
     branch_address = models.CharField(max_length=100)
     branch_status = models.CharField(max_length=100)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.branch_name

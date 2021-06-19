@@ -24,6 +24,7 @@ class SectionSerializer(serializers.ModelSerializer):
             'id',
             'section_name',
             'section_shift',
+            'student_class',
         )
 
 

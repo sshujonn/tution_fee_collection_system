@@ -22,6 +22,7 @@ class StudentClassSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'class_name',
+            'branch',
         )
 
 

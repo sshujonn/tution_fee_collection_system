@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+{% load render_table from django_tables2 %}
+{% load rest_framework %}
+{% block content %}
+{#    {% render_table serializer %}#}
+<a class="btn btn-primary" href="{% url 'create_student_category' %}">Add</a>
+<table class="table table-hover table-bordered table-striped">
+
+    <thead>
+    <tr>
+        {% for field, value in serializer.0.fields.items %}
+        <th>{{ field | title }}</th>
+        {% endfor %}
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for instance in serializer %}
+    <tr>
+        {% for field, value in instance.fields.items %}
+        <td>{{ value }}</td>
+        {% endfor %}
+
+        <td>
+            <div class="row">
+                <div class="col-sm-6">
+                    <a class="btn btn-outline-warning"
+                       style="width: 60px; height: 30px; font-size: 10px;padding: 5px"
+                       href="{% url 'update_sections' pk=instance.pk action='update'%}">Update</a>
+                </div>
+                <div class="col-sm-6">
+                    <a class="btn btn-danger delete-any"
+                       style="width: 60px; height: 30px; font-size: 10px;padding: 5px"
+                       href="{% url 'update_sections' pk=instance.pk action='delete'%}">Delete</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+
+
+</table>
+
+{% endblock %}

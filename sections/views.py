@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from sections.models import sections
+from classes.models import StudentClass
+from branches.models import Branch
 from helper.PermissionUtil import DBCRUDPermission
 from helper.global_service import GlobalService
 
@@ -42,13 +44,13 @@ class SectionList(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
+        branch = Branch.objects.filter(branch_admins=request.user)[0]
 
-        items = sections.objects.all()
+        # import pdb;pdb.set_trace()
+        items = sections.objects.filter(student_class__in=StudentClass.objects.filter(branch = branch))
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
-
-
 
 
 class SectionCreate(APIView):
@@ -80,7 +82,7 @@ class SectionEdit(APIView):
 
         menu = gs.get_menu(request.user)
 
-        if (len(item) < 1):
+        if len(item) < 1:
             messages.warning(request, 'Only creator of this project can update')
             return HttpResponseRedirect(reverse('view_sections'))
         item = item.get(pk=pk)
@@ -101,5 +103,3 @@ class SectionEdit(APIView):
                 serializer.save()
 
         return HttpResponseRedirect(reverse('view_sections'))
-
-

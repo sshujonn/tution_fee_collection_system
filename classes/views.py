@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from classes.models import StudentClass
+from branches.models import Branch
 from helper.PermissionUtil import DBCRUDPermission
 from helper.global_service import GlobalService
 
@@ -59,8 +60,9 @@ class StudentClassList(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
-
-        projects = StudentClass.objects.all()
+        branch = Branch.objects.filter(branch_admins = request.user)[0]
+        # import pdb;pdb.set_trace()
+        projects = StudentClass.objects.filter(branch = branch)
         projects = c_serializers.serialize("python", projects)
 
         return Response({'serializer': projects, 'menu': menu}, template_name=self.template_name)
@@ -76,7 +78,7 @@ class StudentClasssEdit(APIView):
 
         menu = gs.get_menu(request.user)
 
-        if (len(item) < 1):
+        if len(item) < 1:
             messages.warning(request, 'Only creator of this project can update')
             return HttpResponseRedirect(reverse('view_studentclass'))
         item = item.get(pk=pk)

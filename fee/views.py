@@ -24,6 +24,7 @@ class FeeSerializer(serializers.ModelSerializer):
             'id',
             'fee_name',
             'fee_amount',
+            'student_class',
         )
 
 
@@ -79,7 +80,7 @@ class FeeEdit(APIView):
 
         menu = gs.get_menu(request.user)
 
-        if (len(item) < 1):
+        if len(item) < 1:
             messages.warning(request, 'Only creator of this project can update')
             return HttpResponseRedirect(reverse('view_fee'))
         item = item.get(pk=pk)

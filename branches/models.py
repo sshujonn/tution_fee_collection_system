@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 from institutions.models import Institution
 
@@ -11,6 +12,7 @@ class Branch(models.Model):
     branch_address = models.CharField(max_length=100)
     branch_status = models.CharField(max_length=100)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
+    branch_admins = models.ManyToManyField(User)
 
     def __str__(self):
         return self.branch_name

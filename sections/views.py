@@ -19,7 +19,18 @@ gs = GlobalService()
 
 
 # Create your views here.
+
+class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+        request = self.context.get('request', None)
+        branch = Branch.objects.filter(branch_admins=request.user)[0]
+        queryset = StudentClass.objects.filter(branch=branch)
+        if not request or not queryset:
+            return None
+        return queryset.filter(branch=branch)
+
 class SectionSerializer(serializers.ModelSerializer):
+    student_class = UserFilteredPrimaryKeyRelatedField()
     class Meta:
         model = sections
         fields = (
@@ -60,7 +71,7 @@ class SectionCreate(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
-        serializer = SectionSerializer()
+        serializer = SectionSerializer(context={'request': request})
         return Response({'serializer': serializer, 'menu': menu}, template_name=self.template_name)
 
     def post(self, request):
@@ -89,7 +100,7 @@ class SectionEdit(APIView):
         if action == 'delete':
             item.delete()
         else:
-            serializer = SectionSerializer(item)
+            serializer = SectionSerializer(item, context={'request': request})
             return Response({'serializer': serializer, 'item': item, 'menu': menu}, template_name=self.template_name)
 
         return HttpResponseRedirect(reverse('view_sections'))

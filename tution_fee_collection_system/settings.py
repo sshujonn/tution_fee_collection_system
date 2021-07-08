@@ -91,12 +91,34 @@ WSGI_APPLICATION = 'tution_fee_collection_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': (
+                '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1522))'
+                '(CONNECT_DATA=(SERVICE_NAME=xe)))'
+                    ),
+        'USER': 'tfcs',
+        'PASSWORD': 'tfcs',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.oracle',
+#         'NAME': 'xe',
+#         'USER': 'tfcs',
+#         'PASSWORD': 'tfcs',
+#         'HOST': '127.0.0.1',
+#         'PORT': '1521',
+#     }
+# }
 
 
 # Password validation

@@ -9,7 +9,9 @@
     <thead>
     <tr>
         {% for field, value in serializer.0.fields.items %}
+{#            {% if field != 'branch_admins' %}#}
         <th>{{ field | title }}</th>
+{#            {% endif %}#}
         {% endfor %}
         <th>Action</th>
     </tr>
@@ -18,7 +20,10 @@
     {% for instance in serializer %}
     <tr>
         {% for field, value in instance.fields.items %}
-        <td>{{ value }}</td>
+{#            {% if field != 'branch_admins' %}#}
+                <td>{{ value }}</td>
+{#            {% endif %}#}
+
         {% endfor %}
 
         <td>

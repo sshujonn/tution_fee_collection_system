@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from fee.models import Fee
+from branches.models import Branch
+from classes.models import StudentClass
 from helper.PermissionUtil import DBCRUDPermission
 from helper.global_service import GlobalService
 
@@ -18,6 +20,21 @@ gs = GlobalService()
 
 # Create your views here.
 class FeeSerializer(serializers.ModelSerializer):
+    student_class = serializers.SerializerMethodField('_is_my_find')
+
+    def _is_my_find(self, obj):
+        user_id = self.context.get("user_id")
+        if user_id:
+            branch = Branch.objects.filter(branch_admins=request.user)[0]
+            # import pdb;pdb.set_trace()
+            classes = StudentClass.objects.filter(branch=branch)
+            print (classes)
+            return classes
+            # return user_id in obj.my_objects.values_list("user_id", flat=True)
+        return False
+
+    # student_class = serializers.PrimaryKeyRelatedField(queryset=StudentClass.objects.filter())
+    # student_class = is_my_object
     class Meta:
         model = Fee
         fields = (
@@ -42,8 +59,10 @@ class FeeList(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
+        branch = Branch.objects.filter(branch_admins=request.user)[0]
 
-        items = Fee.objects.all()
+
+        items = Fee.objects.filter(student_class__in=StudentClass.objects.filter(branch = branch))
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
@@ -58,7 +77,7 @@ class FeeCreate(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
-        serializer = FeeSerializer()
+        serializer = FeeSerializer(context={'user_id': request.user.id})
         return Response({'serializer': serializer, 'menu': menu}, template_name=self.template_name)
 
     def post(self, request):

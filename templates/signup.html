@@ -3,65 +3,57 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  	<title>Login | Tution Fee Collection System</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="{% static 'css/signup.css' %}">
-{#	<link rel="stylesheet" href="../static/css/style.css">#}
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
 
 </head>
 <body>
-    <div class="main">
-        <!-- Sign up form -->
-        <section class="signup">
-            <div class="container">
-                <div class="signup-content">
-                    <div class="signup-form">
-                        <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="register-form">
+<div id="logreg-forms">
+    <!--    <form action="#" class="form-signup">-->
+    <!--        <p style="text-align:center">SIGN UP</p>-->
 
-                            {% csrf_token %}
-                            {% for field in form %}
-                                <div class="form-group">
-                                    <label for="firstname"></label>
-{#                                    <input type="text" name="firstname" id="firstname" placeholder="Your First Name"/>#}
-{#                                    {% render_field form.first_name placeholder=form.first_name.label %}#}
-                                    {{ field }}
-                                    {% if field.help_text %}
-                                      <small style="color: grey">{{ field.help_text }}</small>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
+    <!--        <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">-->
+    <!--        <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">-->
+    <!--        <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">-->
+    <!--        <input type="password" id="user-repeatpass" class="form-control" placeholder="Confirm Password" required-->
+    <!--               autofocus="">-->
 
-{#
-                            <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                            </div>
-                        </form>
+    <!--        <div class="input-group">-->
+    <!--            <button class="btn btn-md btn-block submit" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>-->
+    <!--        </div>-->
+    <!--        <hr>-->
+    <!--         <button class="btn btn-primary btn-block" type="button" id="btn-in"><i class="fas fa-user-plus"></i> Sign up New Account</button>-->
+    <!--    </form>-->
 
-                    </div>
 
-                    <div class="signup-image">
-                        <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image"></figure>
-                        <a href="{% url 'login' %}" class="signup-image-link">I am already member</a>
-                    </div>
+    <form method="POST" class="form-signup" >
+        {% csrf_token %}
+
+<!--        {{ form.first_name }}-->
+
+
+
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
                 </div>
-            </div>
-        </section>
+                {% endfor %}
 
+        <div class="form-group form-button">
+            <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+        </div>
+    </form>
 
-    </div>
-
-
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-{#    <script src="{% static 'js/popper.js' %}"></script>#}
-{#    <script src="{% static 'js/bootstrap.min.js' %}"></script>#}
+    <br>
     <script src="{% static 'js/signup.js' %}"></script>
+</div>
 </body>
 </html>

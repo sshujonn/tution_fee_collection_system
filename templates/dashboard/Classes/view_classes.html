@@ -1,44 +1,56 @@
-
 {% extends "../base.html" %}
 {% load render_table from django_tables2 %}
 {% load rest_framework %}
 {% block content %}
 {#    {% render_table serializer %}#}
-    <a class="btn btn-primary" href="{% url 'create_studentclass' %}">Add</a>
-    <table class="table table-hover table-bordered table-striped">
 
-    <thead>
-        <tr>
-            {% for field, value in serializer.0.fields.items %}
-                <th>{{ field | title }}</th>
-            {% endfor %}
-            <th>Action</th>
-        </tr>
+<!--    <a class="btn btn-primary float-right" href="{% url 'create_studentclass' %}">Add</a>-->
+
+<!--<a class="btn btn-outline-secondary float-right btn-round mr-md-3 mb-md-0 mb-2" href="{% url 'create_studentclass' %}">Add</a>-->
+
+<a class="float-right btn-round mr-md-3 mb-md-0 mb-2 pb-3" href="{% url 'create_studentclass' %}">
+    <button type="button" class="btn btn-outline-danger">
+        <i class="ion-ios-heart mr-1"></i> Add Class
+    </button>
+</a>
+
+
+<table class="table table-hover table-bordered table-dark  text-center table-responsive-lg">
+
+    <thead class="table-info text-dark">
+    <tr>
+        {% for field, value in serializer.0.fields.items %}
+        <th>{{ field | title }}</th>
+        {% endfor %}
+        <th>Action</th>
+    </tr>
     </thead>
     <tbody>
-        {% for instance in serializer %}
-            <tr>
-                {% for field, value in instance.fields.items %}
-                    <td>{{ value }}</td>
-                {% endfor %}
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a class="btn btn-outline-warning"
-                                   style="width: 60px; height: 30px; font-size: 10px;padding: 5px" href="{% url 'update_studentclass' pk=instance.pk action='update'%}">Update</a>
-                            </div>
-                            <div class="col-sm-6">
-                                <a class="btn btn-danger delete-any"
-                                   style="width: 60px; height: 30px; font-size: 10px;padding: 5px" href="{% url 'update_studentclass' pk=instance.pk action='delete'%}" >Delete</a>
-                            </div>
-                        </div>
-                    </td>
-            </tr>
+    {% for instance in serializer %}
+    <tr>
+        {% for field, value in instance.fields.items %}
+        <td>{{ value }}</td>
         {% endfor %}
+        <td>
+            <div class="row">
+                <div class="col-sm-6">
+                    <a class="btn btn-outline-warning"
+                       style="width: 60px; height: 30px; font-size: 10px;padding: 5px"
+                       href="{% url 'update_studentclass' pk=instance.pk action='update'%}">Update</a>
+                </div>
+                <div class="col-sm-6">
+                    <a class="btn btn-danger delete-any"
+                       style="width: 60px; height: 30px; font-size: 10px;padding: 5px"
+                       href="{% url 'update_studentclass' pk=instance.pk action='delete'%}">Delete</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
 
     </tbody>
 
 
-    </table>
+</table>
 
 {% endblock %}

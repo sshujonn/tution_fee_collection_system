@@ -60,9 +60,12 @@ class StudentClassList(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
-        branch = Branch.objects.filter(branch_admins = request.user)[0]
-        # import pdb;pdb.set_trace()
-        projects = StudentClass.objects.filter(branch = branch)
+        if not request.user.is_superuser:
+            branch = Branch.objects.filter(branch_admins = request.user)[0]
+            # import pdb;pdb.set_trace()
+            projects = StudentClass.objects.filter(branch = branch)
+        else:
+            projects = StudentClass.objects.all()
         projects = c_serializers.serialize("python", projects)
 
         return Response({'serializer': projects, 'menu': menu}, template_name=self.template_name)

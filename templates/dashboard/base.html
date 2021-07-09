@@ -54,7 +54,7 @@
             <div class="container-fluid">
                 <div class="header-mobile-inner">
                     <a class="logo" href="{% url 'dashboard' %}">
-                        <img src="{% static 'dashboard/images/logo.png' %}" alt="Task Manager"/>
+                        <img src="{% static 'dashboard/images/logo1.png' %}" alt="Task Manager"/>
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -161,15 +161,8 @@
         <header class="header-desktop">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <div class="header-wrap">
-                        <form class="form-header" action="" method="POST">
-                            {% csrf_token %}
-                            <input class="au-input au-input--xl" type="text" name="search"
-                                   placeholder="Search for datas &amp; reports..."/>
-                            <button class="au-btn--submit" type="submit">
-                                <i class="zmdi zmdi-search"></i>
-                            </button>
-                        </form>
+                    <div class="header-wrap float-right">
+
                         <div class="header-button">
 
                             <div class="account-wrap">

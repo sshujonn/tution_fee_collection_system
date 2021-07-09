@@ -27,7 +27,7 @@ class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
         queryset = StudentClass.objects.filter(branch=branch)
         if not request or not queryset:
             return None
-        return queryset.filter(branch=branch)
+        return queryset
 
 
 class FeeSerializer(serializers.ModelSerializer):
@@ -56,10 +56,14 @@ class FeeList(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
-        branch = Branch.objects.filter(branch_admins=request.user)[0]
+
+        if not request.user.is_superuser:
+            branch = Branch.objects.filter(branch_admins=request.user)[0]
+            items = Fee.objects.filter(student_class__in=StudentClass.objects.filter(branch = branch))
+        else:
+            items = Fee.objects.all()
 
 
-        items = Fee.objects.filter(student_class__in=StudentClass.objects.filter(branch = branch))
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)

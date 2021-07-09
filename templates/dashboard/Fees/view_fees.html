@@ -3,10 +3,18 @@
 {% load rest_framework %}
 {% block content %}
 {#    {% render_table serializer %}#}
-<a class="btn btn-primary" href="{% url 'create_fee' %}">Add</a>
-<table class="table table-hover table-bordered table-striped">
 
-    <thead>
+<!--<a class="btn btn-primary" href="{% url 'create_fee' %}">Add</a>-->
+
+<a class="float-right btn-round mr-md-3 mb-md-0 mb-2 pb-3" href="{% url 'create_fee' %}">
+    <button type="button" class="btn btn-outline-danger">
+        <i class="ion-ios-heart mr-1"></i> Add Fee
+    </button>
+</a>
+
+<table class="table table-hover table-bordered table-dark  text-center table-responsive-lg">
+
+     <thead class="table-info text-dark">
     <tr>
         {% for field, value in serializer.0.fields.items %}
         <th>{{ field | title }}</th>

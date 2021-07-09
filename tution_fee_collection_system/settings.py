@@ -17,7 +17,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = '2f63e5*!8tx3&-c%k-xp89fex3o0)%01q@8h*fp&4k#_%9g%l2'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -87,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tution_fee_collection_system.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -98,28 +95,17 @@ WSGI_APPLICATION = 'tution_fee_collection_system.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': (
-                '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1522))'
-                '(CONNECT_DATA=(SERVICE_NAME=xe)))'
-                    ),
+        'NAME': '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=XEPDB1)))',
         'USER': 'tfcs',
         'PASSWORD': 'tfcs',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.oracle',
-#         'NAME': 'xe',
-#         'USER': 'tfcs',
-#         'PASSWORD': 'tfcs',
-#         'HOST': '127.0.0.1',
-#         'PORT': '1521',
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -139,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -153,7 +138,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
@@ -161,12 +145,11 @@ REST_FRAMEWORK = {
     ]
 }
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-                    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )

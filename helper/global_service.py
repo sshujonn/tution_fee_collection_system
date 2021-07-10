@@ -34,3 +34,13 @@ class GlobalService(Object):
                 if {'menu_name':menu.menu_name, 'url': menu.related_url} not in result.get(p_menu_name):
                     result[p_menu_name].append({'menu_name':menu.menu_name, 'url': menu.related_url})
         return result
+
+
+
+from django import template
+
+register = template.Library()
+
+@register.filter
+def replace_toblank(value):
+    return value.replace("_"," ")

@@ -1,13 +1,23 @@
 {% extends "../base.html" %}
 {% load rest_framework %}
+
+
 {% block content %}
 <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <form autocomplete="off" class="form-horizontal" method="post" action="{% url 'create_studentclass' %}">
+                        <form autocomplete="off" id="create_form" class="form-horizontal" method="post" action="{% url 'create_studentclass' %}">
                             {% csrf_token %}
+
+{#                            {% render_form serializer template_pack='rest_framework/inline'%}#}
                             {% render_form serializer %}
+
+{#                            {% render_field serializer.class_name style="{'template_pack': 'rest_framework/vertical/'}" %}#}
+{#                                {% for item in serializer.data %}#}
+{#                                    {{ item }}#}
+{#                                {% endfor %}#}
+{#                            <input value="{{ serializer.class_name }}"/>#}
 
                             <br>
                             <button class="form-group btn btn-success" style="background: #03c10b; color: black">Submit</button>

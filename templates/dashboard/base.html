@@ -1,5 +1,5 @@
 {% load static %}
-
+{#{% load global_service %}#}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -275,7 +275,25 @@
 
 <!-- Main JS-->
 <script src="{% static 'dashboard/js/main.js' %}"></script>
+<script>
+    $( document ).ready(function() {
+    $('#create_form input').each(
+    function(index){
+        var input = $(this);
+        input.addClass("");
+        {#alert('Type: ' + input.attr('type') + 'Name: ' + input.attr('name') + 'Value: ' + input.val());#}
+    }
+);
 
+    $('#create_form select').each(
+    function(index){
+        var input = $(this);
+        input.addClass("");
+        {#alert('Type: ' + input.attr('type') + 'Name: ' + input.attr('name') + 'Value: ' + input.val());#}
+    }
+);
+});
+</script>
 </body>
 
 </html>

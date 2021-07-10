@@ -5,7 +5,7 @@ from django.core import serializers as c_serializers
 from django.urls import reverse
 from django.contrib import messages
 from rest_framework import renderers, serializers
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -70,6 +70,15 @@ class StudentClassList(APIView):
 
         return Response({'serializer': projects, 'menu': menu}, template_name=self.template_name)
 
+
+class StudentClassListByBranch(APIView):
+    permission_classes = (AllowAny,)
+    renderer_classes = [renderers.JSONRenderer]
+
+    def get(self, request, branch_id):
+        projects = StudentClass.objects.filter(branch_id=branch_id)
+        projects = c_serializers.serialize("python", projects)
+        return Response({'serializer': projects})
 
 class StudentClasssEdit(APIView):
     permission_classes = (IsAuthenticated, DBCRUDPermission)

@@ -5,7 +5,7 @@ from django.core import serializers as c_serializers
 from django.urls import reverse
 from django.contrib import messages
 from rest_framework import renderers, serializers
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -49,6 +49,16 @@ class InstitutionList(APIView):
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
 
+
+class InstitutionListNoAuth(APIView):
+    permission_classes = (AllowAny,)
+    renderer_classes = [renderers.JSONRenderer]
+
+    def get(self, request):
+        items = Institution.objects.all()
+        items = c_serializers.serialize("python", items)
+
+        return Response({'serializer': items})
 
 class InstitutionCreate(APIView):
     permission_classes = (IsAuthenticated, DBCRUDPermission)

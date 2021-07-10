@@ -5,7 +5,7 @@ from django.core import serializers as c_serializers
 from django.urls import reverse
 from django.contrib import messages
 from rest_framework import renderers, serializers
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -52,6 +52,16 @@ class BranchList(APIView):
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
+
+class BranchListByInstitution(APIView):
+    permission_classes = (AllowAny)
+    renderer_classes = [renderers.JSONRenderer]
+
+    def get(self, request, institution_id):
+        items = Branch.objects.filter(institution_id=institution_id)
+        items = c_serializers.serialize("python", items)
+
+        return Response({'serializer': items})
 
 
 class BranchCreate(APIView):

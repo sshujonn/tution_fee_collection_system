@@ -5,7 +5,7 @@ from django.core import serializers as c_serializers
 from django.urls import reverse
 from django.contrib import messages
 from rest_framework import renderers, serializers
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -67,6 +67,16 @@ class FeeList(APIView):
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
+
+class FeeListByClass(APIView):
+    permission_classes = (AllowAny,)
+    renderer_classes = [renderers.JSONRenderer]
+
+    def get(self, request, class_id):
+        items = Fee.objects.filter(class_id=class_id)
+        items = c_serializers.serialize("python", items)
+
+        return Response({'serializer': items})
 
 
 

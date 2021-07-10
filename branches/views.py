@@ -28,6 +28,7 @@ class BranchSerializer(serializers.ModelSerializer):
             'branch_address',
             'branch_status',
             'institution',
+            'branch_admins'
         )
 
 

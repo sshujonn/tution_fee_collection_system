@@ -23,8 +23,13 @@ gs = GlobalService()
 class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
         request = self.context.get('request', None)
-        branch = Branch.objects.filter(branch_admins=request.user)[0]
-        queryset = StudentClass.objects.filter(branch=branch)
+        if not request.user.is_superuser:
+            branch = Branch.objects.filter(branch_admins=request.user)[0]
+            queryset = StudentClass.objects.filter(branch=branch)
+
+        else:
+            queryset = StudentClass.objects.all()
+
         if not request or not queryset:
             return None
         return queryset
@@ -63,7 +68,6 @@ class FeeList(APIView):
         else:
             items = Fee.objects.all()
 
-
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
@@ -77,8 +81,6 @@ class FeeListByClass(APIView):
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items})
-
-
 
 
 class FeeCreate(APIView):

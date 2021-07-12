@@ -1,6 +1,7 @@
 from django.db import models
 from sections.models import sections
 from student_category.models import StudentCategory
+from classes.models import StudentClass
 
 # Create your models here.
 class students(models.Model):
@@ -13,6 +14,7 @@ class students(models.Model):
     student_father_name = models.CharField(max_length=50)
     student_mother_name = models.CharField(max_length=50)
     session_start_date = models.CharField(max_length=20)
-    session_end_date = models.CharField(max_length=20)
+    session_end_date = models.CharField(max_length=30)
     section = models.ForeignKey(sections, on_delete=models.CASCADE)
+    student_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE)
     category = models.ForeignKey(StudentCategory, on_delete=models.CASCADE)

@@ -6,6 +6,7 @@ from student_category.models import StudentCategory
 class students(models.Model):
     student_name = models.CharField(max_length=50)
     roll_no = models.CharField(max_length=20)
+    student_email = models.CharField(max_length=10)
     student_gender = models.CharField(max_length=10)
     student_dob = models.CharField(max_length=20)
     student_address = models.CharField(max_length=100)

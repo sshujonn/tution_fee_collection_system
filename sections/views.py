@@ -23,8 +23,11 @@ gs = GlobalService()
 class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
         request = self.context.get('request', None)
-        branch = Branch.objects.filter(branch_admins=request.user)[0]
-        queryset = StudentClass.objects.filter(branch=branch)
+        if not request.user.is_superuser:
+            branch = Branch.objects.filter(branch_admins=request.user)[0]
+            queryset = StudentClass.objects.filter(branch=branch)
+        else:
+            queryset = StudentClass.objects.filter()
         if not request or not queryset:
             return None
         return queryset
@@ -111,7 +114,7 @@ class SectionEdit(APIView):
 
     def post(self, request, pk, action):
         item = sections.objects.filter().get(pk=pk)
-        serializer = SectionSerializer(item, data=request.data)
+        serializer = SectionSerializer(item, data=request.data, context={'request': request})
 
         if action == 'update':
             if serializer.is_valid():

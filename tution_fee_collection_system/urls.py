@@ -46,21 +46,25 @@ urlpatterns = [
 
     # For class
     path('view_class/', class_views.StudentClassList.as_view(), name='view_studentclass'),
+    path('view_class/<int:branch_id>', class_views.StudentClassListByBranch.as_view(), name='view_studentclass_by_branch'),
     path('add_studentclass/', class_views.StudentClassCreate.as_view(), name='create_studentclass'),
     path('update_class/<int:pk>/<slug:action>', class_views.StudentClasssEdit.as_view(), name='update_studentclass'),
 
     # For institution
     path('view_institution/', ins_views.InstitutionList.as_view(), name='view_institution'),
+    path('view_institution_all/', ins_views.InstitutionListNoAuth.as_view(), name='view_institution_all'),
     path('add_institution/', ins_views.InstitutionCreate.as_view(), name='create_institution'),
     path('update_institution/<int:pk>/<slug:action>', ins_views.InstitutionEdit.as_view(), name='update_institution'),
 
     # For branch
     path('view_branch/', branch_views.BranchList.as_view(), name='view_branch'),
+    path('view_branch/<int:institution_id>', branch_views.BranchListByInstitution.as_view(), name='view_branch_by_institution'),
     path('add_branch/', branch_views.BranchCreate.as_view(), name='create_branch'),
     path('update_branch/<int:pk>/<slug:action>', branch_views.BrachEdit.as_view(), name='update_branch'),
 
     # For fee
     path('view_fee/', fee_views.FeeList.as_view(), name='view_fee'),
+    path('view_fee/<int:class_id>', fee_views.FeeListByClass.as_view(), name='view_fee_by_class'),
     path('add_fee/', fee_views.FeeCreate.as_view(), name='create_fee'),
     path('update_fee/<int:pk>/<slug:action>', fee_views.FeeEdit.as_view(), name='update_fee'),
 

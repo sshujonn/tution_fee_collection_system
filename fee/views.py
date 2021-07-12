@@ -23,8 +23,11 @@ gs = GlobalService()
 class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
         request = self.context.get('request', None)
-        branch = Branch.objects.filter(branch_admins=request.user)[0]
-        queryset = StudentClass.objects.filter(branch=branch)
+        if not request.user.is_superuser:
+            branch = Branch.objects.filter(branch_admins=request.user)[0]
+            queryset = StudentClass.objects.filter(branch=branch)
+        else:
+            queryset = StudentClass.objects.all()
         if not request or not queryset:
             return None
         return queryset
@@ -79,8 +82,6 @@ class FeeListByClass(APIView):
         return Response({'serializer': items})
 
 
-
-
 class FeeCreate(APIView):
     permission_classes = (IsAuthenticated, DBCRUDPermission)
     template_name = 'dashboard/Fees/create_fee_page.html'
@@ -125,7 +126,7 @@ class FeeEdit(APIView):
 
     def post(self, request, pk, action):
         item = Fee.objects.filter().get(pk=pk)
-        serializer = FeeSerializer(item, data=request.data)
+        serializer = FeeSerializer(item, data=request.data, context={'request': request})
 
         if action == 'update':
             if serializer.is_valid():

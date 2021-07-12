@@ -66,7 +66,6 @@ class FeeList(APIView):
         else:
             items = Fee.objects.all()
 
-
         items = c_serializers.serialize("python", items)
 
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)

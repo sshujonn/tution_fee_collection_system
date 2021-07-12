@@ -10,7 +10,7 @@ class Branch(models.Model):
     branch_email = models.CharField(max_length=60)
     branch_phone_number = models.CharField(max_length=20)
     branch_address = models.CharField(max_length=100)
-    branch_status = models.CharField(max_length=100)
+    branch_status = models.CharField(max_length=10)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
     branch_admins = models.ManyToManyField(User)
 

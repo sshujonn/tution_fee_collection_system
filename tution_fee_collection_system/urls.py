@@ -89,3 +89,6 @@ urlpatterns = [
     path('validate_fee_pay/', payment_views.ValidatePayment.as_view(), name='validate_payment'),
 
 ]
+admin.site.site_header = "Tution Fee Collection System"
+admin.site.index_title = "Tution Fee Collection System"
+admin.site.site_title = "Tution Fee Collection System"

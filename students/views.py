@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from branches.models import Branch
+from classes.models import StudentClass
 from sections.models import sections
 from student_category.models import StudentCategory
 from students.models import students
@@ -54,8 +56,13 @@ class StudentList(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
-
-        items = students.objects.all()
+        if not request.user.is_superuser:
+            branch = Branch.objects.filter(branch_admins=request.user)[0]
+            # import pdb;pdb.set_trace()
+            section = sections.objects.filter(student_class__in=StudentClass.objects.filter(branch=branch))
+            items = students.objects.filter(section__in=section)
+        else:
+            items = students.objects.all()
         items = c_serializers.serialize("python", items)
 
         items_ret = []
@@ -97,7 +104,7 @@ class StudentEdit(APIView):
 
         menu = gs.get_menu(request.user)
 
-        if (len(item) < 1):
+        if len(item) < 1:
             messages.warning(request, 'Only creator of this project can update')
             return HttpResponseRedirect(reverse('view_students'))
         item = item.get(pk=pk)

@@ -17,8 +17,19 @@ from users.models import Profile
 
 gs = GlobalService()
 
+class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+        request = self.context.get('request', None)
+        if not request.user.is_superuser:
+            queryset = Branch.objects.filter(branch_admins=request.user)
+        else:
+            queryset = Branch.objects.all()
+        if not request or not queryset:
+            return None
+        return queryset
 
 class StudentClassSerializer(serializers.ModelSerializer):
+    branch = UserFilteredPrimaryKeyRelatedField()
     class Meta:
         model = StudentClass
         fields = (
@@ -41,7 +52,7 @@ class StudentClassCreate(APIView):
 
     def get(self, request):
         menu = gs.get_menu(request.user)
-        serializer = StudentClassSerializer()
+        serializer = StudentClassSerializer(context={'request': request})
         return Response({'serializer': serializer, 'menu': menu}, template_name=self.template_name)
 
     def post(self, request):

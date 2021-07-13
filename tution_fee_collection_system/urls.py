@@ -86,5 +86,6 @@ urlpatterns = [
     path('update_students/<int:pk>/<slug:action>', students_views.StudentEdit.as_view(), name='update_students'),
 
     path('fee_pay/', payment_views.PaymentPage.as_view(), name='view_payment'),
+    path('validate_fee_pay/', payment_views.ValidatePayment.as_view(), name='validate_payment'),
 
 ]

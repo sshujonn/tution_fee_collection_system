@@ -38,14 +38,7 @@ class BranchFieldsSerializer(serializers.ModelSerializer):
     institution_name = serializers.RelatedField(source='institution', read_only=True)
     class Meta:
         model = Branch
-        # fields = '__all__'
-        fields = ('branch_name',
-                    'branch_email',
-                    'branch_phone_number',
-                    'branch_address',
-                    'branch_status',
-                    'institution_name',
-                    'branch_admins')
+        fields = '__all__'
 
 
 class BranchList(APIView):
@@ -95,6 +88,7 @@ class BranchCreate(APIView):
         modified_data = gs.update_immutable_obj(request.data, {'created_by': request.user.id})
         # modified_data = gs.update_immutable_obj(request.data,{'created_by':request.user.id, 'last_updated_by': request.user.pk})
         serializer = BranchFieldsSerializer(context=request, data=modified_data)
+        # import pdb;pdb.set_trace()
         if serializer.is_valid():
             serializer.save()
         return HttpResponseRedirect(reverse('view_branch'))

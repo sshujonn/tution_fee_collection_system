@@ -24,3 +24,15 @@ class PaymentPage(APIView):
 
         # return Response({'serializer': items})
         return Response({'serializer': items}, template_name=self.template_name)
+
+class ValidatePayment(APIView):
+    permission_classes = (AllowAny,)
+    template_name = 'dashboard/payment/payment.html'
+    renderer_classes = [renderers.JSONRenderer,]
+
+    def get(self, request):
+        items = Institution.objects.all()
+        items = c_serializers.serialize("python", items)
+
+        # return Response({'serializer': items})
+        return Response({'serializer': items})

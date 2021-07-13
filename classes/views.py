@@ -13,6 +13,7 @@ from classes.models import StudentClass
 from branches.models import Branch
 from helper.PermissionUtil import DBCRUDPermission
 from helper.global_service import GlobalService
+from users.models import Profile
 
 gs = GlobalService()
 
@@ -62,13 +63,18 @@ class StudentClassList(APIView):
         menu = gs.get_menu(request.user)
         if not request.user.is_superuser:
             branch = Branch.objects.filter(branch_admins = request.user)[0]
-            # import pdb;pdb.set_trace()
             projects = StudentClass.objects.filter(branch = branch)
         else:
             projects = StudentClass.objects.all()
-        projects = c_serializers.serialize("python", projects)
+        items = c_serializers.serialize("python", projects)
 
-        return Response({'serializer': projects, 'menu': menu}, template_name=self.template_name)
+        items_ret = []
+        for item in items:
+            item['fields']['branch'] = Branch.objects.get(pk=item['fields']['branch']).branch_name
+            item['fields']['created_by'] = Profile.objects.get(pk=item['fields']['created_by']).username
+            items_ret.append(item)
+
+        return Response({'serializer': items_ret, 'menu': menu}, template_name=self.template_name)
 
 
 class StudentClassListByBranch(APIView):

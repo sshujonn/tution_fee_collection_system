@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from sections.models import sections
+from student_category.models import StudentCategory
 from students.models import students
 from helper.PermissionUtil import DBCRUDPermission
 from helper.global_service import GlobalService
@@ -23,6 +25,9 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'student_name',
+            'roll_no',
+            'student_email',
+            'category',
             'student_gender',
             'student_dob',
             'student_address',
@@ -31,6 +36,7 @@ class StudentSerializer(serializers.ModelSerializer):
             'student_mother_name',
             'session_start_date',
             'session_end_date',
+            'section'
         )
 
 
@@ -52,6 +58,12 @@ class StudentList(APIView):
         items = students.objects.all()
         items = c_serializers.serialize("python", items)
 
+        items_ret = []
+        for item in items:
+            item['fields']['category'] = StudentCategory.objects.get(pk=item['fields']['category']).student_category_name
+            item['fields']['section'] = sections.objects.get(pk=item['fields']['section']).section_name
+            items_ret.append(item)
+
         return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
 
 
@@ -67,8 +79,9 @@ class StudentCreate(APIView):
 
     def post(self, request):
         modified_data = gs.update_immutable_obj(request.data, {'created_by': request.user.id})
-        # modified_data = gs.update_immutable_obj(request.data,{'created_by':request.user.id, 'last_updated_by': request.user.pk})
         serializer = StudentFieldsSerializer(context=request, data=modified_data)
+
+        # import pdb;pdb.set_trace()
         if serializer.is_valid():
             serializer.save()
         return HttpResponseRedirect(reverse('view_students'))

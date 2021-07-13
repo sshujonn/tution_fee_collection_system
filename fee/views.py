@@ -68,7 +68,12 @@ class FeeList(APIView):
 
         items = c_serializers.serialize("python", items)
 
-        return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
+        items_ret = []
+        for item in items:
+            item['fields']['student_class'] = StudentClass.objects.get(pk=item['fields']['student_class']).class_name
+            items_ret.append(item)
+
+        return Response({'serializer': items_ret, 'menu': menu}, template_name=self.template_name)
 
 class FeeListByClass(APIView):
     permission_classes = (AllowAny,)

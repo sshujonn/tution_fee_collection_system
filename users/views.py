@@ -7,8 +7,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 
 # Create your views here.\
-from django.urls import reverse
 
+from helper.dboardutil import DBoardUtil, account_activation_token
+from django.urls import reverse
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
 from menu.models import Menu
 from users.form import SignInForm, SignUpForm
 from users.models import Profile
@@ -74,7 +77,10 @@ def sign_up(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            profile = form.save(commit=False)
+            # profile.username = form.cleaned_data.get('email')
+            profile.save()
+            DBoardUtil().sent_email(request, profile, 'Activate Your Tution Fee Collection System Account.')
             return HttpResponseRedirect(reverse('login'))
         else:
             messages.warning(request,
@@ -126,3 +132,25 @@ def add_class(request):
     context = {'form': form}
     # return render(request, 'dashboard/add_class.html', {})
     return render(request, 'dashboard/add_class.html', context)
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        profile = Profile.objects.get(pk=uid)
+
+    except (TypeError, ValueError, OverflowError, Profile.DoesNotExist):
+        profile = None
+
+    if profile is not None and account_activation_token.check_token(profile, token):
+        profile.is_active = True
+        profile.is_email_verified = True
+        profile.save()
+        login(request, profile)
+
+        # messages.success(request,
+        #                  'Thank you for your email confirmation. Now you can update your profile.')
+
+        return HttpResponseRedirect(reverse('dashboard'))
+        # return redirect('edit')
+    else:
+        return render(request, 'activation_code_invalid.html')

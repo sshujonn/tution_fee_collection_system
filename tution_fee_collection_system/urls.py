@@ -18,7 +18,7 @@ import profile
 from django.contrib import admin
 from django.urls import path
 from users.views import log_in, dashboard, log_out, sign_up, change_password, class_setup, section_setup, shift_setup, \
-    view_structure, user_profile, fee_structure, add_fee_category, add_class
+    view_structure, user_profile, fee_structure, add_fee_category, add_class, activate
 
 from classes import views as class_views
 from institutions import views as ins_views
@@ -27,6 +27,7 @@ from fee import views as fee_views
 from sections import views as section_views
 from student_category import views as student_category_views
 from students import views as students_views
+from payment import views as payment_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,6 +45,7 @@ urlpatterns = [
     path('add_fee_category/', add_fee_category, name='add_fee_category'),
     path('add_class/', add_class, name='add_class'),
 
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
     # For class
     path('view_class/', class_views.StudentClassList.as_view(), name='view_studentclass'),
     path('view_class/<int:branch_id>', class_views.StudentClassListByBranch.as_view(), name='view_studentclass_by_branch'),
@@ -82,4 +84,7 @@ urlpatterns = [
     path('view_students/',  students_views.StudentList.as_view(), name='view_students'),
     path('add_students/', students_views.StudentCreate.as_view(), name='create_students'),
     path('update_students/<int:pk>/<slug:action>', students_views.StudentEdit.as_view(), name='update_students'),
+
+    path('fee_pay/', payment_views.PaymentPage.as_view(), name='view_payment'),
+
 ]

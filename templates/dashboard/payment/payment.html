@@ -1,0 +1,86 @@
+{% extends "../base_unauth.html" %}
+{% load render_table from django_tables2 %}
+{% load rest_framework %}
+{% block content %}
+    <div class="container" style="width: 450px">
+        <form action="">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="institution" class="col-form-label mr-2">Institution:</label>
+                </div>
+                <div class="col-sm-9">
+                    <select class="form-control" id="institution" name="institution" required>
+                        <option disabled selected value="">--Select Institution--</option>
+                        {% for item in serializer %}
+                            <option value="{{ item.pk }}">{{ item.fields.institution_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label for="branch" class="col-form-label mr-2">Branch : </label>
+                </div>
+                <div class="col-sm-9">
+                    <select class="form-control" id="branch" name="branch" required>
+                        <option disabled selected value="">--Select Branch--</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label for="class" class="col-form-label mr-2">Class: </label>
+                </div>
+                <div class="col-sm-9">
+                    <select class="form-control" id="class" name="class" required>
+                        <option disabled selected  value="">--Select Class--</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label for="year" class="col-form-label mr-2">Year: </label>
+                </div>
+                <div class="col-sm-9">
+                    <select class="form-control" id="year" name="year" required>
+                        <option disabled selected value="">--Select Year--</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="month" class="col-form-label mr-2">Month: </label>
+                </div>
+                <div class="col-sm-9">
+                    <select class="form-control" id="month" name="month" required>
+                        <option disabled selected value="">--Select Month--</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label for="roll_no" class="col-form-label mr-2">Roll No: </label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control" name="roll_no" id="roll_no">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-xs-3 col-xs-9">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

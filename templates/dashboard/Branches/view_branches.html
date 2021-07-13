@@ -29,9 +29,12 @@
     {% for instance in serializer %}
     <tr>
         {% for field, value in instance.fields.items %}
-{#            {% if field != 'branch_admins' %}#}
+            {% if field == 'branch_admins' %}
                 <td>{{ value }}</td>
-{#            {% endif %}#}
+                {% else %}
+                <td>{{ value }}</td>
+            {% endif %}
+
 
         {% endfor %}
 

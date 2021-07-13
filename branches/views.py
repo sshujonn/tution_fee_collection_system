@@ -10,8 +10,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from branches.models import Branch
+from institutions.models import Institution
 from helper.PermissionUtil import DBCRUDPermission
 from helper.global_service import GlobalService
+from users.models import Profile
 
 gs = GlobalService()
 
@@ -33,9 +35,17 @@ class BranchSerializer(serializers.ModelSerializer):
 
 
 class BranchFieldsSerializer(serializers.ModelSerializer):
+    institution_name = serializers.RelatedField(source='institution', read_only=True)
     class Meta:
         model = Branch
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ('branch_name',
+                    'branch_email',
+                    'branch_phone_number',
+                    'branch_address',
+                    'branch_status',
+                    'institution_name',
+                    'branch_admins')
 
 
 class BranchList(APIView):
@@ -48,14 +58,20 @@ class BranchList(APIView):
         menu = gs.get_menu(request.user)
 
         items = Branch.objects.all()
-
-        # import pdb;pdb.set_trace()
         items = c_serializers.serialize("python", items)
-
-        return Response({'serializer': items, 'menu': menu}, template_name=self.template_name)
+        items_ret=[]
+        for item in items:
+            item['fields']['institution'] = Institution.objects.get(pk=item['fields']['institution']).institution_name
+            br_adm_name_list = ""
+            for br_adm in item['fields']['branch_admins']:
+                br_adm_name = Profile.objects.get(pk=br_adm).username
+                br_adm_name_list += str(br_adm_name)
+            item['fields']['branch_admins'] = br_adm_name_list
+            items_ret.append(item)
+        return Response({'serializer': items_ret, 'menu': menu}, template_name=self.template_name)
 
 class BranchListByInstitution(APIView):
-    permission_classes = (AllowAny)
+    permission_classes = (AllowAny,)
     renderer_classes = [renderers.JSONRenderer]
 
     def get(self, request, institution_id):

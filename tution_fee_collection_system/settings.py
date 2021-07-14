@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'students',
     'menu',
     'parent_menu',
-    'django_tables2'
+    'django_tables2',
+    'bill_generation'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

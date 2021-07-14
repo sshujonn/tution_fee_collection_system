@@ -11,6 +11,8 @@ class bill_generation(models.Model):
     FEE_AMOUNT = models.CharField(max_length=10)
     SESSION_START_DATE = models.DateTimeField()
     SESSION_END_DATE = models.DateTimeField()
+    IS_APPLICABLE = models.CharField(max_length=5)
+    IS_PAID = models.CharField(max_length=5)
     BILLING_MONTH = models.DateTimeField()
     MAKER_TIME = models.DateTimeField()
 

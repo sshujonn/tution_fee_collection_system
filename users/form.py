@@ -12,22 +12,34 @@ class SignInForm(AuthenticationForm):
 
 
 class SignUpForm(UserCreationForm):
-    # first_name = forms.CharField(max_length=30, required=False, help_text='First Name. Optional.')
-    # last_name = forms.CharField(max_length=30, required=False, help_text='Last Name. Optional.')
-    # email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    first_name = forms.CharField(max_length=30, required=False, help_text='First Name. Optional.')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Last Name. Optional.')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
+    username = forms.CharField(max_length=100,
+                                widget=forms.TextInput
+                                (attrs={'class': 'form-control',
+                                        'id': 'last-name', 'placeholder': 'Username'}))
     first_name = forms.CharField(max_length=100,
                                 widget=forms.TextInput
                                 (attrs={'class': 'form-control',
-                                        'id': 'user-name', 'placeholder': 'Username'}))
+                                        'id': 'user-name', 'placeholder': 'Firstname'}))
     last_name = forms.CharField(max_length=100,
                                  widget=forms.TextInput
                                  (attrs={'class': 'form-control',
-                                         'id': 'last-name'}))
+                                         'id': 'last-name', 'placeholder': 'Lastname'}))
     email = forms.CharField(max_length=100,
                                  widget=forms.EmailInput
                                  (attrs={'class': 'form-control',
-                                         'id': 'email'}))
+                                         'id': 'email', 'placeholder': 'email'}))
+    password1 = forms.CharField(max_length=100,
+                            widget=forms.PasswordInput
+                            (attrs={'class': 'form-control',
+                                    'id': 'email', 'placeholder': 'Enter Password'}))
+    password2 = forms.CharField(max_length=100,
+                            widget=forms.PasswordInput
+                            (attrs={'class': 'form-control',
+                                    'id': 'email', 'placeholder': 'Confirm Password'}))
 
     class Meta:
         model = Profile

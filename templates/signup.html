@@ -14,46 +14,61 @@
 </head>
 <body>
 <div id="logreg-forms">
-        <form action="#" class="form-signup">
-            <p style="text-align:center">SIGN UP</p>
+    <!--    <form action="#" class="form-signup">-->
+    <!--        <p style="text-align:center">SIGN UP</p>-->
 
-            <input type="text" id="first-name" class="form-control" placeholder="First Name" required="" autofocus="">
-            <input type="text" id="last-name" class="form-control" placeholder="Last Name" required="" autofocus="">
-            <input type="text" id="user-name" class="form-control" placeholder="Username" required="" autofocus="">
-            <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
-            <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
-            <input type="password" id="user-repeatpass" class="form-control" placeholder="Confirm Password" required
-                   autofocus="">
+    <!--        <input type="text" id="first-name" class="form-control" placeholder="First Name" required="" autofocus="">-->
+    <!--        <input type="text" id="last-name" class="form-control" placeholder="Last Name" required="" autofocus="">-->
+    <!--        <input type="text" id="user-name" class="form-control" placeholder="Username" required="" autofocus="">-->
+    <!--        <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">-->
+    <!--        <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">-->
+    <!--        <input type="password" id="user-repeatpass" class="form-control" placeholder="Confirm Password" required-->
+    <!--               autofocus="">-->
 
-            <div class="input-group">
-                <button class="btn btn-md btn-block submit" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-            </div>
-            <hr>
-            <p style="text-align:center">Already Have an Account?</p>
-             <button class="btn btn-primary btn-block" type="button" id="btn-in"><i class="fas fa-user-plus"></i> Back To Sign In</button>
-        </form>
-
-
-<!--    <form method="POST" class="form-signup" >-->
-<!--        {% csrf_token %}-->
-
-<!--&lt;!&ndash;        {{ form.first_name }}&ndash;&gt;-->
+    <!--        <div class="input-group">-->
+    <!--            <button class="btn btn-md btn-block submit" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>-->
+    <!--        </div>-->
+    <!--        <hr>-->
+    <!--        <p style="text-align:center">Already Have an Account?</p>-->
+    <!--        <button class="btn btn-primary btn-block" type="button" id="btn-in"><i class="fas fa-user-plus"></i> Back To-->
+    <!--            Sign In-->
+    <!--        </button>-->
+    <!--    </form>-->
 
 
+    <form method="POST" class="register-form" id="register-form">
+        <p style="text-align:center">SIGN UP</p>
+        {% csrf_token %}
 
-<!--                {% for field in form %}-->
-<!--                <div class="form-group">-->
-<!--                    {{ field }}-->
-<!--                    {% if field.help_text %}-->
-<!--                    <small style="color: grey">{{ field.help_text }}</small>-->
-<!--                    {% endif %}-->
-<!--                </div>-->
-<!--                {% endfor %}-->
+        <!--        {{ form.first_name }}-->
 
-<!--        <div class="form-group form-button">-->
-<!--            <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>-->
-<!--        </div>-->
-<!--    </form>-->
+        {% for field in form %}
+        <div class="form-group">
+            {{ field }}
+            {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="form-group form-button">
+            <!--            <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>-->
+
+            <input type="submit" name="signup" id="signup" class="form-submit btn btn-md btn-block submit"
+                   value="Register"/>
+        </div>
+
+        <hr>
+        <p style="text-align:center">Already Have an Account?</p>
+        <!--        <button class="btn btn-primary btn-block" type="button" id="btn-in"><a-->
+        <!--                href="{% url 'login' %}" class="signup-image-link">I am already member</a>-->
+        <!--        </button>-->
+
+        <button class="btn btn-primary btn-block" type="button" id="btn-in" onclick="location.href='{% url 'login' %}'"
+                type="button">
+            I am already member
+        </button>
+    </form>
 
     <br>
     <script src="{% static 'js/signup.js' %}"></script>

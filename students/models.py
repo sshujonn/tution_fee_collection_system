@@ -14,6 +14,7 @@ class students(models.Model):
     student_religion = models.CharField(max_length=20)
     student_father_name = models.CharField(max_length=50)
     student_mother_name = models.CharField(max_length=50)
+    student_parent_yearly_income = models.CharField(max_length=50)
     session_start_date = models.DateTimeField()
     session_end_date = models.DateTimeField()
     section = models.ForeignKey(sections, on_delete=models.CASCADE)
